@@ -1,27 +1,26 @@
 {
-  "name": "rollincode-timber-theme",
+  "name": "timber-bootstrap-starter-theme",
   "version": "1.0.0",
-  "description": "Starter theme for wordpress, use Timber & Bootstrap",
+  "description": "Starter theme for Wordpress, use Timber & Bootstrap 4",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Fanch",
   "license": "GPL-2.0",
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
-    "css-loader": "^0.25.0",
-    "file-loader": "^0.9.0",
-    "gulp": "^3.9.1",
+    "bootstrap-sass": "latest",
+    "css-loader": "latest",
+    "file-loader": "latest",
+    "gulp": "latest",
     "gulp-autoprefixer": "latest",
-    "gulp-clean": "^0.3.2",
+    "gulp-clean": "latest",
     "gulp-csso": "latest",
-    "gulp-imagemin": "^3.0.3",
-    "gulp-livereload": "^3.8.1",
+    "gulp-imagemin": "latest",
+    "gulp-livereload": "latest",
     "gulp-load-plugins": "latest",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-uglify": "^2.0.0"
+    "gulp-plumber": "latest",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-uglify": "latest"
   }
 }

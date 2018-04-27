@@ -41,22 +41,29 @@ class StarterSite extends TimberSite {
 	}
 
 	function load_scripts() {
-        if (!is_admin()) {
-            // Livereload
-            if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-                wp_register_script('livereload', 'http://localhost:35729/livereload.js?snipver=1', null, false, true);
-                wp_enqueue_script('livereload');
-            }
+		if (!is_admin()) {
+			// Livereload
+			if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
+				wp_register_script('livereload', 'http://localhost:35729/livereload.js?snipver=1', null, false, true);
+				wp_enqueue_script('livereload');
+			}
 
-            // Bootstrap
-            wp_register_script('bootstrap-js', get_template_directory_uri() .'/node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js', array('jquery'), false, true);
-            wp_enqueue_script('bootstrap-js');
+			// jQuery
+			wp_deregister_script( 'jquery-core' );
+			wp_register_script( 'jquery-core', 'https://code.jquery.com/jquery-3.3.1.slim.min.js', false, '3.3.1-slim', true );
 
-            // Theme
-            wp_register_script('theme-js', get_stylesheet_directory_uri() .'/static/site.js', array('jquery'), false, true);
-            wp_enqueue_script('theme-js');
-        }
-    }
+			// Bootstrap
+			wp_register_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css', false, '4.1.0', null);
+			wp_enqueue_style('bootstrap-css');
+			wp_register_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js', array('jquery'), '1.14.0', true);
+			wp_register_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js', array('popper','jquery'), '4.0.0', true);
+			wp_enqueue_script('bootstrap-js');
+
+			// Theme
+			wp_register_script('theme-js', get_stylesheet_directory_uri() .'/static/site.js', array('jquery'), false, true);
+			wp_enqueue_script('theme-js');
+		}
+	}
 
 	function add_to_twig( $twig ) {
 		/* this is where you can add your own fuctions to twig */
@@ -65,11 +72,6 @@ class StarterSite extends TimberSite {
 		return $twig;
 	}
 
-	static function dump($var) {
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-    }
 
 }
 

@@ -1,19 +1,10 @@
-<div class="container">
-    <div class="row widgets-container">
-        {{ footer_widgets }}
-    </div>
-</div>
-
-<div class="legals">
-    <p>
-        {{ site.name }}
-        -
-        Tous droits réservés
-        -
-        {{"now"|date('Y')}}
-        -
-        Une création <a href="http://www.begital.com" target="_blank">Begital & Associés</a>
-        -
-        <a href="/?p=5">Mentions légales</a>
-    </p>
-</div>
+<footer>
+	<div class="container">
+		<div class="row widgets-container">
+			{{ footer_widgets }}
+		</div>
+	</div>
+	<div class="copyright py-3 px-2 text-white bg-dark text-center small">
+         &copy; {{"now"|date('Y')}} {{ site.name }}
+	</div>
+</footer>

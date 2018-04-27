@@ -1,11 +1,7 @@
 {% if menu %}
-	<ul class="dropdown-menu">
+	<div class="dropdown-menu" aria-labelledby="navbarDropdown-{{dropdown_id}}">
 	{% for item in menu %}
-		<li class="{{item.classes | join(' ')}}">
-			<a href="{{item.get_link}}">
-				{{item.title}}
-			</a>
-		</li>
+		<a href="{{item.get_link}}" class="dropdown-item{{item.classes|join(' ')}}{% if item.current %} active{% endif %}"{% if item.target %} target="{{item.target}}"{% endif %}><span class="inside">{{item.title}}</span></a>
 	{% endfor %}
-	</ul>
+	</div>
 {% endif %}

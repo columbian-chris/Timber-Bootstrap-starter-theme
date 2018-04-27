@@ -1,31 +1,44 @@
 {% if menu %}
-	<ul class="nav navbar-nav">
-	{% for item in menu %}
 
-		{% if item.get_children is not empty %}
-			{% set submenu = true %}
-		{% else %}
-			{% set submenu = false %}
-		{% endif %}
+<nav class="navbar navbar-expand-md navbar-light bg-light d-md-inline d-xl-flex text-center">
 
-		<li class="{{item.classes | join(' ')}}{% if submenu %} dropdown{% endif %}">
-			<a
-				href="{{item.get_link}}"
-				{% if submenu %}
-					class="dropdown-toggle"
-					data-toggle="dropdown"
-					role="button"
-					aria-haspopup="true"
-					aria-expanded="false"
-				{% endif %}
-			>
-				{{item.title}}
-				{% if submenu %}<span class="caret"></span>{% endif %}
-			</a>
-			{% if submenu %}
-				{% include "dropdown-menu.twig" with {'menu': item.get_children} %}
-			{% endif %}
-		</li>
-	{% endfor %}
-	</ul>
+  {% if site.icon %}
+  <a class="navbar-logo mr-xl-3" href="{{ site.url }}"><img src="{{site.icon.src('thumbnail')}}" alt="{{ site.name }}"></a>
+  {% else %}
+  <a class="navbar-logo mr-xl-3" href="{{ site.url }}">{{ site.name }}</a>
+  {% endif %}
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse mt-3 mt-md-0" id="navbarNavDropdown">
+
+	{# main menu #}
+    <ul class="navbar-nav mt-2 mt-lg-0">
+
+    {% for item in menu %}
+
+      {% if item.get_children is not empty %}
+        {% set submenu = true %}
+      {% else %}
+        {% set submenu = false %}
+      {% endif %}
+
+      <li class="{{item.classes | join(' ')}}{% if submenu %} dropdown{% endif %}{% if item.current %} active{% endif %}">
+        <a href="{{item.get_link}}" class="nav-link{% if submenu %} dropdown-toggle{% endif %}{% if 'current-menu-parent' in item.classes %} active{% endif %}"{% if submenu %} id="navbarDropdown-{{item.id}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{% endif %}{% if item.target %} target="{{item.target}}"{% endif %}>
+          {{item.title}}</a>
+        {% if submenu %}
+          {% include "dropdown-menu.twig" with { 'menu': item.get_children, 'dropdown_id':item.id } %}
+        {% endif %}
+      </li>
+
+    {% endfor %}
+
+    </ul>
+
+  </div>
+
+</nav>
+
 {% endif %}

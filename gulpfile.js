@@ -18,13 +18,13 @@ gulp.task('css', function () {
 
 // JS
 gulp.task('js', function() {
-    return gulp.src('src/js/site.js')
+    return gulp.src('src/js/*.js')
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.plumber())
         .pipe(plugins.uglify())                                     // minify
         .pipe(plugins.livereload())
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest('static'));
+        .pipe(gulp.dest('static/js'));
 });
 
 // Clean
@@ -35,7 +35,7 @@ gulp.task('clean', function() {
 
 // Images optimisation
 gulp.task('img', function () {
-    return gulp.src('src/img/*.{png,jpg,svg}')
+    return gulp.src('src/img/*.{png,jpg,svg,gif}')
         .pipe(plugins.imagemin())
         .pipe(gulp.dest('static/img'));
 });
@@ -43,14 +43,14 @@ gulp.task('img', function () {
 // Watch
 gulp.task('watch', function(){
     plugins.livereload.listen(35729);
-    gulp.watch('**/*.php').on('change', function(file) {
+    gulp.watch(['**/*.php','!vendor/**/*.php','!node_modules/**/*.php']).on('change', function(file) {
         plugins.livereload.changed(file.path);
     });
     gulp.watch('**/*.twig').on('change', function(file) {
         plugins.livereload.changed(file.path);
     });
     gulp.watch('src/sass/**/*.scss',['css']);
-    gulp.watch('src/js/site.js',['js']);
+    gulp.watch('src/js/*.js',['js']);
 });
 
 // Build

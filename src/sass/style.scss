@@ -1,18 +1,13 @@
 /*!
-Theme Name: Rollincode Timber Starter Theme
+Theme Name: Timber Bootstrap Starter Theme
 Author: Fanch
-Description: Starter Theme with Bootstrap to use with Timber
+Description: Starter Theme with Bootstrap 4 to use with Timber
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: rollincode
 Tags:
-
 */
-
-// Bootstrap
-$icon-font-path: "node_modules/bootstrap-sass/assets/fonts/bootstrap/";
-@import "./../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
 @import "variables-site/variables-site";
 @import "mixins/mixins-master";

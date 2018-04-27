@@ -1,53 +1,49 @@
 {% block html_head_container %}
+	{% include 'html-header.twig' %}
 
-{% include 'html-header.twig' %}
-	{% block head %}
-	{% endblock %}
+	{% block head %}{% endblock %}
 	</head>
 {% endblock %}
+
 	<body class="{{body_class}}" data-template="base.twig">
-		<header class="header" >
-			{% block header %}
-				<div class="wrapper">
-					<nav class="navbar navbar-default navbar-static-top">
-						<div class="container-fluid">
-							<div class="navbar-header">
-								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-									<span class="sr-only">Toggle navigation</span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-								</button>
-								<a class="navbar-brand" href="{{site.url}}">{{site.name}}</a>
-							</div>
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-								{% include "menu.twig" with {'menu': menu.get_items} %}
-							</div><!-- /.navbar-collapse -->
-						</div><!-- /.container-fluid -->
-					</nav><!-- #nav -->
-				</div>
-			{% endblock %}
+
+		{% include "menu.twig" with {'menu': menu.get_items} %}
+
+		{% block top %}
+
+		<header class="jumbotron"{% if post.thumbnail.src %} style="background-image:url('{{ post.thumbnail.src }}')"{% endif %}>
+			<div class="container">
+				{% if post.title %}
+				<h1 class="jumbotron-heading{% if header_size %} header-{{header_size}}{% endif %}">{{post.title}}</h1>
+				{% endif %}
+			</div>
 		</header>
 
-		<section id="content" role="main" class="content-wrapper container">
-			{% if title %}<h1>{{title}}</h1>{% endif %}
+		{% endblock %}
+
+		<section id="content" role="main" class="content-wrapper container py-5">
 			<div class="wrapper {{sidebar_class}}">
-				{% block content %}
-					Sorry, no content
-				{% endblock %}
+				<div class="row">
+					<div class="{% if not nosidebar %}col-lg-8{% else %}col-lg-12{% endif %} {{content_class}}" id="main-content-area">
+						{% block content %}{{ post.content }}{% endblock %}
+					</div>
+					{% if not nosidebar %}
+					<aside class="col-lg-4 sidebar mt-5 mt-lg-0">
+						{% block sidebar_top %}{% endblock %}
+						{% include 'sidebar.twig' %}
+						{% block sidebar %}{% endblock %}
+					</aside>
+					{% endif %}
+				</div>
 			</div>
-			{% if sidebar %}
-				<aside class="layout-sidebar">
-					{{sidebar}}
-				</aside>
-			{% endif %}
 		</section>
 
 		{% block footer %}
-			<footer id="footer">
+			<footer>
 				{% include 'footer.twig' %}
 			</footer>
 			{{ function('wp_footer') }}
 		{% endblock %}
+
 	</body>
 </html>
